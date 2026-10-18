@@ -3,9 +3,7 @@ require_once(realpath(__DIR__.'/../vendor/autoload.php'));
 
 use Cascade\Cascade;
 
-// For these to work you will need php-redis and raven/raven
-
-// You will want to update this file with a valid dsn
+// For this to work you will need the php-redis extension and a Redis server on 127.0.0.1:6379
 $loggerConfigFile = realpath(__DIR__.'/dependency_config.yml');
 
 Cascade::fileConfig($loggerConfigFile);

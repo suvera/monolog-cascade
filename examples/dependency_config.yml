@@ -4,12 +4,6 @@ version: 1
 disable_existing_loggers: false
 
 handlers:
-    sentry:
-        class: Monolog\Handler\RavenHandler
-        level: DEBUG
-        raven_client:
-            class: Raven_Client
-            options_or_dsn: https://something:dummy@getsentry.com/1
     redis:
         class: Monolog\Handler\RedisHandler
         level: DEBUG
@@ -19,4 +13,4 @@ handlers:
             connect: ['127.0.0.1', 6379]
 loggers:
     dependency:
-        handlers: [sentry, redis]
+        handlers: [redis]

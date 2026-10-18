@@ -8,4 +8,4 @@ $logger->pushHandler(new Monolog\Handler\StreamHandler('php://stdout'));
 $logger->info('Hellooooo World!');
 
 // you should see the following in the stdout:
-//    [YYYY-mm-dd hh:mm:ss] some_logger.INFO: Hellooooo World!
+//    [YYYY-mm-ddThh:mm:ss.uuuuuu+00:00] some_logger.INFO: Hellooooo World! [] []

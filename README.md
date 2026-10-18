@@ -20,7 +20,17 @@ Add `monolog-cascade` as a requirement in your `composer.json` file or run
 $ composer require suvera/monolog-cascade:dev-master
 ```
 
-Note: Monolog Cascade requires PHP 5.3.9 or higher.
+Note: Monolog Cascade requires PHP 8.1 or higher and Monolog 3.x.
+
+### Upgrading from Monolog 2
+
+This version requires [Monolog 3](https://github.com/Seldaek/monolog/blob/main/UPGRADE.md). Config files keep working unchanged, but check the following if you have custom classes or code:
+
+- PHP 8.1 is the minimum version.
+- Log records are now `Monolog\LogRecord` objects instead of arrays. Custom processors, formatters and handlers must accept `LogRecord $record` (use `$record->context` instead of `$record['context']`).
+- Log levels are the `Monolog\Level` enum. Level names in config (`level: DEBUG`) still work. The `Logger::DEBUG` style constants are deprecated in favour of `Level::Debug`.
+- Lazy-loading factories for `FingersCrossedHandler`, `FilterHandler` and `SamplingHandler` must now be `Closure` instances.
+- Some handlers were removed, e.g. `SwiftMailerHandler` (use `SymfonyMailerHandler`) and `RavenHandler` (removed in Monolog 2, use Sentry's own Monolog handler).
 
 Usage
 -----
@@ -169,7 +179,7 @@ If some parameters are not present in the constructor, they will be treated as e
 You can use either _underscored_ or _camelCased_ style in your config files, it does not matter. However, it is important that they match the names of the arguments from the constructor method.
 
 ```php
-public function __construct($level = Logger::ERROR, $bubble = true, $appName = null)
+public function __construct(int|string|Level $level = Level::Error, bool $bubble = true, ?string $appName = null)
 ```
 
 Using a Yaml file:
